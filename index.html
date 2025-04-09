@@ -1,0 +1,660 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивный нейротренажер</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="scripts.js"></script>
+</head>
+<body>
+    <div id="intro-screen" class="screen active">
+        <header>
+            <h1>Интерактивный нейротренажер</h1>
+            <h2>развития памяти для учащихся старших классов впериод подготовки к ГИА</h2>
+        </header>
+        <main>
+            <div class="card avatar">
+                <img src="https://i.imgur.com/7pTUOvi.jpg" alt="Мика">
+                <p>Давай познакомимся! Меня зовут Мика, и я твой личный психолог. Я помогу тебе решить твою проблему.</p>
+            </div>
+            <div class="card form">
+                <h2>Моя анкета</h2>
+                <form id="user-form">
+                    <label for="name">Введите имя:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="age">Введите возраст:</label>
+                    <input type="number" id="age" name="age" required>
+                    <label for="gender">Укажите пол:</label>
+                    <select id="gender" name="gender" required>
+                        <option value="М">М</option>
+                        <option value="Ж">Ж</option>
+                    </select>
+                    <button type="button" id="next-button" class="button">Далее</button>
+                </form>
+            </div>
+            <div class="card intro-text" style="display: none;">
+                <h2>Введение</h2>
+                <p>Я понимаю, что экзамены могут вызывать много стресса и переживаний и понимаю, что проблемы с запоминанием могут вызывать беспокойство. Это совершенно нормально чувствовать себя подавленным перед важным событием. Постарайся не забывать, что ты уже много работаешь и готовишься. Но помни, что ты не одинок в своих переживаниях. Есть множество методов, которые могут помочь улучшить запоминание. Главное — не перегружай себя, делай небольшие перерывы и отдыхай. Постарайся сосредоточиться на том, что ты уже знаешь, и не забывай, что ЕГЭ/ОГЭ — это всего лишь один из этапов в жизни и один из шагов на твоем пути.</p>
+                <p>Ты справишься! Удачи тебе на экзамене!</p>
+                <p>- Мика</p>
+                <button type="button" id="start-button" class="button">Начать</button>
+            </div>
+        </main>
+    </div>
+
+    <div id="test-list-screen" class="screen">
+        <header>
+            <h1>Выберите задание</h1>
+        </header>
+        <main>
+            <h2>Диагностический блок</h2>
+            <ul>
+                <li><button class="test-button button" data-test="test1">Задание №1: История из картинок</button></li>
+                <li><button class="test-button button" data-test="test2">Задание №2: Таблица Шульте</button></li>
+                <li><button class="test-button button" data-test="test3">Задание №3: Память на цифры</button></li>
+                <li><button class="test-button button" data-test="test4">Задание №4: Заучивание 10 слов</button></li>
+                <li><button class="test-button button" data-test="test5">Задание №5: Память на образы</button></li>
+            </ul>
+            <h2>Развивающий блок</h2>
+            <ul>
+                <li><button class="test-button button" data-test="test6">Задание №1: Цифры</button></li>
+                <li><button class="test-button button" data-test="test7">Задание №2: Слова</button></li>
+                <li><button class="test-button button" data-test="test8">Задание №3: Смысловые цепочки</button></li>
+                <li><button class="test-button button" data-test="test9">Задание №4: Рассказ</button></li>
+                <li><button class="test-button button" data-test="test10">Задание №5: Найди пару для слова</button></li>
+                <li><button class="test-button button" data-test="test11">Задание №6: Обратный отсчет</button></li>
+                <li><button class="test-button button" data-test="test12">Задание №7: Числовая последовательность</button></li>
+                <li><button class="test-button button" data-test="test13">Задание №8: Фото друзей</button></li>
+                <li><button class="test-button button" data-test="test14">Задание №9: Логические задачки</button></li>
+                <li><button class="test-button button" data-test="test15">Задание №10: Лишнее слово</button></li>
+                <li><button class="test-button button" data-test="test16">Задание №11: Стихи</button></li>
+                <li><button class="test-button button" data-test="test17">Задание №12: Запомни маршрут</button></li>
+            </ul>
+        </main>
+    </div>
+
+    <div id="test1" class="screen">
+        <header>
+            <h1>Тест №1: История из картинок</h1>
+        </header>
+        <main>
+            <div class="card">
+                <p>Запомните картинки по порядку, связывая первую со второй, вторую с третьей и т.д.</p>
+                <div class="images" id="sortable-images">
+                    <!-- Добавьте 12 картинок здесь -->
+                    <img src="https://i.imgur.com/2JN9W4A.jpeg" alt="image1" data-order="1">
+                    <img src="https://i.imgur.com/FDpyBUW.jpeg" alt="image2" data-order="2">
+                    <img src="https://i.imgur.com/mkm710B.jpeg" alt="image3" data-order="3">
+                    <img src="https://i.imgur.com/J7En5jE.jpeg" alt="image4" data-order="4">
+                    <img src="https://i.imgur.com/MViyvvV.jpeg" alt="image5" data-order="5">
+                    <img src="https://i.imgur.com/maVV3Uj.jpeg" alt="image6" data-order="6">
+                    <img src="https://i.imgur.com/6M72foy.jpeg" alt="image7" data-order="7">
+                    <img src="https://i.imgur.com/7dBvtJU.jpeg" alt="image8" data-order="8">
+                    <img src="https://i.imgur.com/dnTvRIT.jpeg" alt="image9" data-order="9">
+                    <img src="https://i.imgur.com/3uXmi3P.jpeg" alt="image10" data-order="10">
+                    <img src="https://i.imgur.com/ahwrYEO.jpeg" alt="image11" data-order="11">
+                    <img src="https://i.imgur.com/GUr3teJ.jpeg" alt="image12" data-order="12">
+                </div>
+                <div id="timer">00:00</div>
+                <button id="checkTest1" class="button">Проверить</button>
+                <button id="nextTest1" class="button" style="display: none;">Следующий тест</button>
+                <div id="timer1"></div>
+            </div>
+        </main>
+    </div>
+
+
+    <div id="test2" class="screen">
+        <header>
+            <h1>Тест №2: Таблица Шульте</h1>
+        </header>
+        <main>
+            <div class="card">
+                <p>Найдите все числа по порядку как можно быстрее.</p>
+                <div class="schulte-table-container"></div>
+                <div id="schulte-timer">00:00</div>
+                <button id="startSchulteTest" class="button">Начать тест</button>
+                <button id="checkTest2" class="button">Проверить</button>
+                <button id="nextTest2" class="button" style="display: none;">Следующий тест</button>
+            </div>
+        </main>
+    </div>
+
+    <div id="test3" class="screen">
+        <header>
+            <h1>Тест №3: Память на цифры</h1>
+        </header>
+        <main>
+            <div class="card">
+                <p>Запомните следующие числа и введите их по порядку.</p>
+                <div id="timer3" class="timer"></div>
+                <div class="numbers">
+                    <!-- Добавьте числа здесь -->
+                </div>
+                <button id="startTest3" class="button">Начать тест</button>
+                <button id="checkTest3" class="button" style="display: none;">Проверить</button>
+            </div>
+        </main>
+    </div>
+
+<div id="test4" class="screen">
+    <header>
+        <h1>Тест №4: Заучивание 10 слов</h1>
+    </header>
+    <main>
+        <div class="card">
+            <audio controls>
+                <source src="https://www.dropbox.com/scl/fi/i2296kcj63nvxqg6jleyp/Voice-002.m4a?rlkey=0wunfw65p1oxiih939kyaehea&st=iqlt6s9m&dl=1" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <div id="timer4" class="timer">Осталось времени: 60 секунд</div>
+            <button id="startTest4" class="button">Начать тест</button>
+            <div id="questions4" style="display:none;">
+                <input type="text" id="answer1" placeholder="Слово 1">
+                <input type="text" id="answer2" placeholder="Слово 2">
+                <input type="text" id="answer3" placeholder="Слово 3">
+                <input type="text" id="answer4" placeholder="Слово 4">
+                <input type="text" id="answer5" placeholder="Слово 5">
+                <input type="text" id="answer6" placeholder="Слово 6">
+                <input type="text" id="answer7" placeholder="Слово 7">
+                <input type="text" id="answer8" placeholder="Слово 8">
+                <input type="text" id="answer9" placeholder="Слово 9">
+                <input type="text" id="answer10" placeholder="Слово 10">
+                <button id="checkTest4" class="button">Проверить</button>
+            </div>
+            <button id="retryTest4" class="button" style="display:none;">Пройти еще раз</button>
+            <button id="nextTest4" class="button" style="display:none;">Следующий тест</button>
+        </div>
+    </main>
+</div>
+
+<div id="test5" class="screen">
+    <header>
+        <h1>Тест №5: Память на образы</h1>
+    </header>
+    <main>
+        <div class="card">
+            <div id="test5-timer">Оставшееся время: 20 сек</div>
+            <div class="images">
+                <img src="https://i.imgur.com/hmG1SRQ.png" alt="image1" data-order="1">
+                    <img src="https://i.imgur.com/ZcNS7Vt.png" alt="image2" data-order="2">
+                    <img src="https://i.imgur.com/gWEGMK4.png" alt="image3" data-order="3">
+                    <img src="https://i.imgur.com/PpgweHh.png" alt="image4" data-order="4">
+                    <img src="https://i.imgur.com/6LEDXw5.png" alt="image5" data-order="5">
+                    <img src="https://i.imgur.com/WSw9smh.png" alt="image6" data-order="6">
+                    <img src="https://i.imgur.com/iZuW0eU.png" alt="image7" data-order="7">
+                    <img src="https://i.imgur.com/stZgO0T.png" alt="image8" data-order="8">
+                    <img src="https://i.imgur.com/hXleTrd.png" alt="image9" data-order="9">
+                    <img src="https://i.imgur.com/6Ghdnkm.png" alt="image10" data-order="10">
+                    <img src="https://i.imgur.com/115iNEP.png" alt="image11" data-order="11">
+                    <img src="https://i.imgur.com/RDnveo5.png" alt="image12" data-order="12">
+                    <img src="https://i.imgur.com/SDiCnE7.png" alt="image13" data-order="13">
+                    <img src="https://i.imgur.com/pfgCjdy.png" alt="image14" data-order="14">
+                    <img src="https://i.imgur.com/fw9bIlH.png" alt="image15" data-order="15">
+                    <img src="https://i.imgur.com/9KkXpgm.png" alt="image16" data-order="16">
+            </div>
+            <button id="startTest5" class="button">Начать тест</button>
+            <button id="checkTest5" class="button" style="display: none;">Проверить</button>
+            <button id="nextTest5" class="button" style="display: none;">Следующий тест</button>
+        </div>
+    </main>
+</div>
+
+<div id="test6" class="screen">
+    <header>
+        <h1>Задание №1: Цифры</h1>
+    </header>
+    <main>
+        <div class="card">
+            <p>Запомни эти числа:</p>
+            <p id="numbers">4, 32, 9, 17, 26, 2, 5, 42, 1</p>
+            <div id="timer6" class="timer"></div>
+            <button id="startTest6" class="button">Начать</button>
+            <div id="questions6" style="display: none;">
+                <div class="question">
+                    <p>Задание 1: какой по счету является цифра 17? В ответ запиши число.</p>
+                    <input type="number" id="answer1" placeholder="Введите число">
+                </div>
+                <div class="question">
+                    <p>Задание 2: сколько всего чисел было? В ответ запиши число.</p>
+                    <input type="number" id="answer2" placeholder="Введите число">
+                </div>
+                <div class="question">
+                    <p>Задание 3: записать ряд чисел (не забывай про запятые и отступы).</p>
+                    <input type="text" id="answer3" placeholder="Введите ряд чисел">
+                </div>
+                <button id="checkTest6" class="button">Проверить</button>
+            </div>
+            <button id="nextTest6" class="button" style="display: none;">Следующий тест</button>
+            <button id="retryTest6" class="button" style="display: none;">Пройти еще раз</button>
+        </div>
+    </main>
+</div>
+
+<div id="test7" class="screen">
+    <header>
+        <h1>Задание №2: Слова</h1>
+    </header>
+    <main>
+        <div class="card">
+            <p>Запомни эти слова:</p>
+            <p id="words">Народ, шкатулка, сурок, дворец, пробежка, яблоко</p>
+            <div id="timer7" class="timer"></div>
+            <button id="startTest7" class="button">Начать тест</button>
+            <div id="questions7" style="display: none;">
+                <div class="question">
+                    <p>Задание 1: какой по счету является слово дворец? В ответ запиши число.</p>
+                    <input type="number" id="answer1">
+                </div>
+                <div class="question">
+                    <p>Задание 2: сколько всего слов было? В ответ запиши число.</p>
+                    <input type="number" id="answer2">
+                </div>
+                <div class="question">
+                    <p>Задание 3: записать ряд слов (не забывай про запятые и отступы).</p>
+                    <input type="text" id="answer3">
+                </div>
+                <button id="checkTest7" class="button">Проверить</button>
+            </div>
+            <button id="nextTest7" class="button" style="display: none;">Следующий тест</button>
+            <button id="retryTest7" class="button" style="display: none;">Пройти еще раз</button>
+        </div>
+    </main>
+</div>
+
+<div id="test8" class="screen">
+    <header>
+        <h1>Задание №3: Смысловые цепочки</h1>
+    </header>
+    <main>
+        <div class="card">
+            <p>Запомни эти слова, придумывая к ним ассоциации.</p>
+            <p id="words8">Писатель, опыт, роза, подушка, ребенок, остров, вкус, ложка, внимание</p>
+            <div id="timer8" class="timer"></div>
+            <button id="startTest8" class="button">Начать тест</button>
+            <div id="questions8" style="display: none;">
+                <div class="question">
+                    <p>Запиши каждое слово в отдельную ячейку.</p>
+                    <p>Ячейка №1: <input type="text" id="answer1"></p>
+                    <p>Ячейка №2: <input type="text" id="answer2"></p>
+                    <p>Ячейка №3: <input type="text" id="answer3"></p>
+                    <p>Ячейка №4: <input type="text" id="answer4"></p>
+                    <p>Ячейка №5: <input type="text" id="answer5"></p>
+                    <p>Ячейка №6: <input type="text" id="answer6"></p>
+                    <p>Ячейка №7: <input type="text" id="answer7"></p>
+                    <p>Ячейка №8: <input type="text" id="answer8"></p>
+                    <p>Ячейка №9: <input type="text" id="answer9"></p>
+                </div>
+                <button id="checkTest8" class="button">Проверить</button>
+            </div>
+            <button id="nextTest8" class="button" style="display: none;">Следующий тест</button>
+            <button id="retryTest8" class="button" style="display: none;">Пройти еще раз</button>
+        </div>
+    </main>
+</div>
+
+<div id="test9" class="screen">
+    <header>
+        <h1>Тест №4: Рассказ</h1>
+    </header>
+    <main>
+        <div class="card">
+            <p>Прочитай рассказ и ответь на вопросы.</p>
+            <p id="story">
+                “В маленьком городке жила девочка по имени Лена. Она обожала гулять по парку и собирать красивые листья. Однажды, во время прогулки, она нашла странный, сияющий камень. Лена решила взять его с собой и показать своим друзьям. Когда она вернулась домой, камень начал светиться еще ярче. Девочка поняла, что это не просто камень, а волшебный артефакт. Она пожелала, чтобы у всех ее друзей были улыбки на лицах. На следующий день все ребята пришли в парк с радостными улыбками. Лена была счастлива, ведь ее желание сбылось. С тех пор девочка всегда носила с собой волшебный камень, даря радость всем вокруг.”
+            </p>
+            <button id="startTest9" class="button">Начать тест</button>
+            <div id="questions9" style="display: none;">
+                <div class="question">
+                    <p>Задание №1: как звали девочку, которая жила в маленьком городке?</p>
+                    <input type="text" id="answer1" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>Задание №2: что она любила собирать во время прогулок по парку?</p>
+                    <input type="text" id="answer2" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>Задание №3: какой необычный предмет она нашла во время одной из своих прогулок?</p>
+                    <input type="text" id="answer3" style="display: block; margin-bottom: 10px;">
+                </div>
+                <button id="checkTest9" class="button">Проверить</button>
+            </div>
+            <button id="nextTest9" class="button" style="display: none;">Следующий тест</button>
+            <button id="retryTest9" class="button" style="display: none;">Пройти еще раз</button>
+        </div>
+    </main>
+</div>
+
+<div id="test10" class="screen">
+    <header>
+        <h1>Тест №5: Найди пару для слова</h1>
+    </header>
+    <main>
+        <div class="card">
+            <p>Запомни эти слова по парам:</p>
+            <ul id="wordPairs">
+                <li>Дерево - дятел</li>
+                <li>Замок - ключ</li>
+                <li>Яблоко - сад</li>
+                <li>Рыба - вода</li>
+                <li>Бумага - ножницы</li>
+                <li>Грибы - лес</li>
+                <li>Блокнот - ручка</li>
+                <li>Коза - рога</li>
+                <li>Доска - гвоздь</li>
+            </ul>
+            <div id="timer10" class="timer"></div>
+            <button id="startTest10" class="button">Начать тест</button>
+            <div id="questions10" style="display: none;">
+                <div class="question">
+                    <p>Дерево - </p>
+                    <input type="text" id="answer1" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>Замок - </p>
+                    <input type="text" id="answer2" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>Яблоко - </p>
+                    <input type="text" id="answer3" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>Рыба - </p>
+                    <input type="text" id="answer4" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>Бумага - </p>
+                    <input type="text" id="answer5" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>Грибы - </p>
+                    <input type="text" id="answer6" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>Блокнот - </p>
+                    <input type="text" id="answer7" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>Коза - </p>
+                    <input type="text" id="answer8" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>Доска - </p>
+                    <input type="text" id="answer9" style="display: block; margin-bottom: 10px;">
+                </div>
+                <button id="checkTest10" class="button">Проверить</button>
+            </div>
+            <button id="nextTest10" class="button" style="display: none;">Следующий тест</button>
+            <button id="retryTest10" class="button" style="display: none;">Пройти еще раз</button>
+        </div>
+    </main>
+</div>
+
+<div id="test6" class="screen">
+    <header>
+        <h1>Задание №6: Цифры</h1>
+    </header>
+    <main>
+        <div class="card">
+            <p>Запомни эти числа:</p>
+            <p id="test6-numbers">4, 32, 9, 17, 26, 2, 5, 42, 1</p>
+            <div id="test6-timer" class="timer"></div>
+            <button id="test6-start" class="button">Начать</button>
+            <div id="test6-questions" style="display: none;">
+                <div class="question">
+                    <p>Задание 1: какой по счету является цифра 17? В ответ запиши число.</p>
+                    <input type="number" id="test6-answer1" placeholder="Введите число">
+                </div>
+                <div class="question">
+                    <p>Задание 2: сколько всего чисел было? В ответ запиши число.</p>
+                    <input type="number" id="test6-answer2" placeholder="Введите число">
+                </div>
+                <div class="question">
+                    <p>Задание 3: записать ряд чисел (не забывай про запятые и отступы).</p>
+                    <input type="text" id="test6-answer3" placeholder="Введите ряд чисел">
+                </div>
+                <button id="test6-check" class="button">Проверить</button>
+            </div>
+            <button id="test6-next" class="button" style="display: none;">Следующий тест</button>
+            <button id="test6-retry" class="button" style="display: none;">Пройти еще раз</button>
+        </div>
+    </main>
+</div>  
+  
+<div id="test12" class="screen">
+    <header>
+        <h1>Тест №7: Числовая последовательность</h1>
+    </header>
+    <main>
+        <div class="card">
+            <p>Выяви закономерность и впиши пропущенное число.</p>
+            <div id="questions12">
+                <div class="question">
+                    <p>Задание 1: 2, 4, 6, 8, 10, </p>
+                    <input type="number" id="answer1" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>Задание 2: 3, 5, 10, 12, 24, </p>
+                    <input type="number" id="answer2" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>Задание 3: 4, 8, 9, 18, 19, </p>
+                    <input type="number" id="answer3" style="display: block; margin-bottom: 10px;">
+                </div>
+                <button id="checkTest12" class="button">Проверить</button>
+            </div>
+            <button id="nextTest12" class="button" style="display: none;">Следующий тест</button>
+            <button id="retryTest12" class="button" style="display: none;">Пройти еще раз</button>
+        </div>
+    </main>
+</div>
+  
+<div id="test13" class="screen">
+    <header>
+        <h1>Задание №8: Фото друзей</h1>
+    </header>
+    <main>
+        <div class="card">
+            <p>Рассмотрите внимательно фотографию.</p>
+            <img id="photo13" src="https://i.imgur.com/c6NlBuD.jpeg" alt="Фото друзей" style="display: none; width: 100%; height: auto;">
+            <div id="timer13" class="timer"></div>
+            <button id="startTest13" class="button">Начать тест</button>
+            <div id="questions13" style="display: none;">
+                <div class="question">
+                    <p>Задание 1: Сколько девушек изображено на фотографии?</p>
+                    <input type="text" id="answer1" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>Задание 2: В какой последовательности, в соответствии с их полом, стоят друзья?</p>
+                    <input type="text" id="answer2" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>Задание 3: Какого цвета футболка у человека посередине?</p>
+                    <input type="text" id="answer3" style="display: block; margin-bottom: 10px;">
+                </div>
+                <button id="checkTest13" class="button">Проверить</button>
+            </div>
+            <button id="nextTest13" class="button" style="display: none;">Следующий тест</button>
+            <button id="retryTest13" class="button" style="display: none;">Пройти еще раз</button>
+        </div>
+    </main>
+</div>
+
+<div id="test14" class="screen">
+    <header>
+        <h1>Задание №9: Логические задачки</h1>
+    </header>
+    <main>
+        <div class="card">
+            <p>Прочитай тексты и реши задания.</p>
+            <div id="questions14">
+                <div class="question">
+                    <p>1. Миша, Петя, и Коля рисовали. Два мальчика рисовали деревья, а один мальчик рисовал дом. Петя и Коля рисовали одинаковые картинки.</p>
+                    <p>Задание 1: что рисовал Миша?</p>
+                    <input type="text" id="answer1" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>2. Алла, Вера, Галя вязали. Две девочки вязали шапки, а одна - варежки. Алла и Вера вязали разные вещи, Вера и Галя - тоже.</p>
+                    <p>Задание 2: что вязала Алла?</p>
+                    <input type="text" id="answer2" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>3. Нина, Валя, Инна, Марина и Костя собирали фрукты. Трое собирали яблоки, двое - груши. Костя и Марина собирали одинаковые фрукты. Марина и Валя - разные. Валя и Нина - разные.</p>
+                    <p>Задание 3: что собирала Инна?</p>
+                    <input type="text" id="answer3" style="display: block; margin-bottom: 10px;">
+                </div>
+                <button id="checkTest14" class="button">Проверить</button>
+            </div>
+            <button id="nextTest14" class="button" style="display: none;">Следующий тест</button>
+            <button id="retryTest14" class="button" style="display: none;">Пройти еще раз</button>
+        </div>
+    </main>
+</div>
+
+<div id="test15" class="screen">
+    <header>
+        <h1>Тест №10: Лишнее слово</h1>
+    </header>
+    <main>
+        <div class="card">
+            <p>Прочитай ряд слов и выпиши не подходящее к остальным по смыслу слово.</p>
+            <div id="questions15">
+                <div class="question">
+                    <p>1. Дряхлый, старый, изношенный, маленький, ветхий.</p>
+                    <input type="text" id="answer1" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>2. Кефир, колбаса, сливки, сыр, сметана.</p>
+                    <input type="text" id="answer2" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>3. Постепенно, скоро, быстро, поспешно, торопливо.</p>
+                    <input type="text" id="answer3" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>4. Ненавидеть, презирать, негодовать, возмущаться, наказывать.</p>
+                    <input type="text" id="answer4" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>5. Темный, светлый, голубой, ясный, тусклый.</p>
+                    <input type="text" id="answer5" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>6. Береза, сосна, дерево, дуб, ель.</p>
+                    <input type="text" id="answer6" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>7. Молоток, гвоздь, муха, топор, шуруп.</p>
+                    <input type="text" id="answer7" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>8. Радость, успех, удача, победа, выигрыш.</p>
+                    <input type="text" id="answer8" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>9. Минута, секунда, час, вечер, сутки.</p>
+                    <input type="text" id="answer9" style="display: block; margin-bottom: 10px;">
+                </div>
+                <button id="checkTest15" class="button">Проверить</button>
+            </div>
+            <button id="nextTest15" class="button" style="display: none;">Следующий тест</button>
+            <button id="retryTest15" class="button" style="display: none;">Пройти еще раз</button>
+        </div>
+    </main>
+</div>
+
+<div id="test16" class="screen">
+    <header>
+        <h1>Тест №11: Стихи</h1>
+    </header>
+    <main>
+        <div class="card">
+            <p>Прочитай вдумчиво стихотворение и попытайся максимально его выучить.</p>
+            <p id="poem">
+                “Весна пришла, цветы расцвели,<br>
+                Зеленый лист на ветках зашумел.<br>
+                Солнце ярко светит в небесах,<br>
+                Скоро птицы вьют гнезда в лесах.”
+            </p>
+            <div id="timer16" class="timer"></div>
+            <button id="startTest16" class="button">Начать тест</button>
+            <div id="questions16" style="display: none;">
+                <div class="question">
+                    <p>Ячейка 1:</p>
+                    <input type="text" id="answer1" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>Ячейка 2:</p>
+                    <input type="text" id="answer2" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>Ячейка 3:</p>
+                    <input type="text" id="answer3" style="display: block; margin-bottom: 10px;">
+                </div>
+                <div class="question">
+                    <p>Ячейка 4:</p>
+                    <input type="text" id="answer4" style="display: block; margin-bottom: 10px;">
+                </div>
+                <button id="checkTest16" class="button">Проверить</button>
+            </div>
+            <button id="nextTest16" class="button" style="display: none;">Следующий тест</button>
+            <button id="retryTest16" class="button" style="display: none;">Пройти еще раз</button>
+        </div>
+    </main>
+</div>
+
+<div id="test17" class="screen">
+    <header>
+        <h1>Тест №12: Запомни маршрут</h1>
+    </header>
+    <main>
+        <div class="card">
+            <p>Внимательно прочитайте текст несколько раз.</p>
+            <div class="text" id="memory-text">
+                <p>В один солнечный день мальчик по имени Максим решил отправиться на прогулку по
+своему городу. Он вышел из дома и направился в магазин. В магазине он купил 
+пакетик конфет, которые давно хотел попробовать. После этого он пошел в парк, где 
+гуляли другие дети. Максим увидел, как ребята играют в мяч, и решил присоединиться
+к ним. Они весело провели время, смеясь и гоняясь друг за другом. Когда утомился от 
+игры, он решил прогуляться по уютной улочке, где росли красивые цветы. Максим 
+остановился, чтобы полюбоваться яркими тюльпанами и сделать несколько 
+фотографий на телефон. Далее он направился к дому своего друга Саши. Они вместе 
+поиграли в настольные игры, и Максим выиграл в шахматы, что очень его обрадовало. 
+После этого они вышли во двор, где стояла старая беседка. Мальчики поели 
+мороженое и обсуждали планы на лето. Затем Максим вернулся домой, но по пути 
+зашел в библиотеку. Он взял несколько книг о природе и животных, так как хотел 
+узнать больше о мире вокруг. На выходе из библиотеки он заметил симпатичную 
+птичку, сидящую на ветке. Она весело щебетала и привлекла внимание Максима. Он 
+остановился, чтобы послушать её. Наконец, он вернулся домой, полон впечатлений и 
+радости от проведенного дня.</p>
+            </div>
+            <div id="timer17">05:00</div>
+            <button id="startTest17" class="button">Начать тест</button>
+            <div id="questions17" style="display: none;">
+                <p>Задание 1: сколько мест посетил Максим, не считая его дома? В ответ запишите число.</p>
+                <input type="text" id="test17-answer1">
+                <p>Задание 2: какое первое место посетил Максим?</p>
+                <input type="text" id="test17-answer2">
+                <p>Задание 3: что он купил в магазине?</p>
+                <input type="text" id="test17-answer3">
+                <p>Задание 4: какие цветы он увидел на улочке?</p>
+                <input type="text" id="test17-answer4">
+                <p>Задание 5: в какой игре Максим выиграл?</p>
+                <input type="text" id="test17-answer5">
+                <p>Задание 6: где мальчики ели мороженое?</p>
+                <input type="text" id="test17-answer6">
+                <p>Задание 7: что Максим взял из библиотеки?</p>
+                <input type="text" id="test17-answer7">
+                <p>Задание 8: кого/что Максим увидел, выйдя из библиотеки?</p>
+                <input type="text" id="test17-answer8">
+                <p>Задание 9: куда вернулся Максим в конце?</p>
+                <input type="text" id="test17-answer9">
+                <button id="checkTest17" class="button">Проверить</button>
+                <button id="nextTest17" class="button" style="display: none;">Следующий тест</button>
+            </div>
+        </div>
+    </main>
+</div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
